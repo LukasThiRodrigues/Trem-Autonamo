@@ -46,7 +46,7 @@ class TremAutonomo:
 
             self.movimentos_totais += 1
 
-            if self.movimentos_totais >= self.LIMITE_MOVIMENTOS_TOTAIS:
+            if self.movimentos_totais > self.LIMITE_MOVIMENTOS_TOTAIS:
                 raise MovimentoExcedeLimiteError(
                     f"Atingido o limite de {self.LIMITE_MOVIMENTOS_TOTAIS} movimentos. Parando o trem."
                 )

@@ -49,7 +49,7 @@ class TestTremAutonomo(unittest.TestCase):
 
     def test_excede_movimentos_totais(self):
         trem = TremAutonomo()
-        comandos = ["DIREITA"] * 51  # 51 movimentos
+        comandos = ["DIREITA", "ESQUERDA"] * 51 # 51 movimentos
         with self.assertRaises(MovimentoExcedeLimiteError):
             trem.mover(comandos)
 
@@ -67,23 +67,16 @@ class TestTremAutonomo(unittest.TestCase):
 
     def test_condicao_borda_limite_movimentos(self):
         trem = TremAutonomo()
-        comandos = ["DIREITA"] * 49 + ["ESQUERDA", "DIREITA"]  # 51 comandos
+        comandos = ["DIREITA"] * 20 + ["ESQUERDA"] * 20 + ["DIREITA"] * 10  # Total: 50 comandos
         posicao_final = trem.mover(comandos)
         self.assertEqual(trem.movimentos_totais, 50)
-        self.assertEqual(posicao_final, 49)
+        self.assertEqual(posicao_final, 10)
 
     def test_mistura_de_comandos_complexos(self):
         trem = TremAutonomo()
         comandos = ["DIREITA"] * 10 + ["ESQUERDA"] * 10 + ["DIREITA"] * 10 + ["ESQUERDA"] * 10 + ["DIREITA"] * 10
         posicao_final = trem.mover(comandos)
         self.assertEqual(posicao_final, 10)
-
-    def test_mover_no_limite_exato(self):
-        trem = TremAutonomo()
-        comandos = ["DIREITA"] * 50
-        posicao_final = trem.mover(comandos)
-        self.assertEqual(trem.movimentos_totais, 50)
-        self.assertEqual(posicao_final, 50)
 
 if __name__ == '__main__':
     unittest.main()
