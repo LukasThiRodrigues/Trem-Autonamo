@@ -37,7 +37,7 @@ class TestTremAutonomo(unittest.TestCase):
 
     def test_comando_invalido(self):
         trem = TremAutonomo()
-        comandos = ["DIREITA", "SUBIDA"]
+        comandos = ["DIREITA", "CIMA"]
         with self.assertRaises(ComandoInvalidoError):
             trem.mover(comandos)
 
@@ -49,10 +49,9 @@ class TestTremAutonomo(unittest.TestCase):
 
     def test_excede_movimentos_totais(self):
         trem = TremAutonomo()
-        comandos = ["DIREITA"] * 55  # 55 movimentos
-        posicao_final = trem.mover(comandos)
-        self.assertEqual(trem.movimentos_totais, 50)
-        self.assertEqual(posicao_final, 50)
+        comandos = ["DIREITA"] * 51  # 51 movimentos
+        with self.assertRaises(MovimentoExcedeLimiteError):
+            trem.mover(comandos)
 
     def test_excede_movimentos_consecutivos(self):
         trem = TremAutonomo()
